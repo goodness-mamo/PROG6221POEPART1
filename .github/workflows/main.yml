@@ -1,4 +1,4 @@
-name: .NET CI
+name: .NET Framework CI
 
 on:
   push:
@@ -6,15 +6,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0.x'
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3
 
-    - run: dotnet restore
+    - name: Restore NuGet packages
+      run: nuget restore
 
-    - run: dotnet build --no-restore
+    - name: Build
+      run: msbuild /p:Configuration=Release
