@@ -15,8 +15,5 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.3
 
-    - name: Restore NuGet packages
-      run: nuget restore
-
     - name: Build
-      run: msbuild /p:Configuration=Release
+      run: msbuild CybersecurityAwarenessBot.csproj /p:Configuration=Release
